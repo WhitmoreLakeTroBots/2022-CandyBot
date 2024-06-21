@@ -16,10 +16,10 @@ import frc.robot.RobotMath;
 
 //import com.fasterxml.jackson.databind.deser.AbstractDeserializer;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class AutoDriveProfileGyro extends CommandBase{
+public class AutoDriveProfileGyro extends Command{
 	private final SubDriveTrain subDriveTrain;
 	private final SubGyro _subGyro;
 

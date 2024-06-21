@@ -11,7 +11,7 @@
 // ROBOTBUILDER TYPE: RobotContainer.
 
 package frc.robot;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 
 //import frc.robot.commands.*;
 import frc.robot.commands.CmdTeleOp;
@@ -85,7 +85,7 @@ public class RobotContainer {
    // SmartDashboard.putData("CmdTurnByGyro", new CmdTurnByGyro(0.0,.25, .25));
    // SmartDashboard.putData("AutoDriveProvileByGyro", new AutoDriveProfileGyro(72.0, 72.0, 0.0, 72));
   
-    CommandBase defaultCmd = new CmdTeleOp();
+    Command defaultCmd = new CmdTeleOp();
    // SmartDashboard.putData("CmdDriveStraightByGyro", defaultCmd);
     
     //*****uncomment for full robot*******/
