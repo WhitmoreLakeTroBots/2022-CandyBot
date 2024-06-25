@@ -66,69 +66,31 @@ public class SubDriveTrain extends SubsystemBase {
     public final double ki_DriveStraightGyro = 0.0;
     public final double kd_DriveStraightGyro = 0.0;
 
-    /**
-    *
-    */
-
     public SubDriveTrain() {
 
-        // for full chassis uncomment other motors
-        // CanSpark_driveLeft_1 = new
-        // WL_Spark(CAN_ID_Constants.kCanID_DriveTrain_left_1, WL_Spark
-        // .MotorType.kBrushless);
         TalonSRX_driveLeft_1 = new TalonSRX(CAN_ID_Constants.kCanID_DriveTrain_left_1);
-
-        // CanSpark_driveLeft_2 = new
-        // WL_Spark(CAN_ID_Constants.kCanID_DriveTrain_left_2, WL_Spark
-        // .MotorType.kBrushless);
         TalonSRX_driveLeft_2 = new TalonSRX(CAN_ID_Constants.kCanID_DriveTrain_left_2);
-
         TalonSRX_driveRight_1 = new TalonSRX(CAN_ID_Constants.kCanID_DriveTrain_right_1);
         TalonSRX_driveRight_2 = new TalonSRX(CAN_ID_Constants.kCanID_DriveTrain_right_2);
 
-        // CanSpark_driveRight_1 = new
-        // WL_Spark(CAN_ID_Constants.kCanID_DriveTrain_right_1, WL_Spark
-        // .MotorType.kBrushless);
-        // CanSpark_driveRight_2 = new
-        // WL_Spark(CAN_ID_Constants.kCanID_DriveTrain_right_2, WL_Spark
-        // .MotorType.kBrushless);
 
-        // addChild("DriveLeft_1", CanSpark_driveLeft_1);
-        // addChild("DriveLeft_2", CanSpark_driveLeft_2);
-        // addChild("DriveRight_1", CanSpark_driveRight_1);
-        // addChild("DriveRight_2", CanSpark_driveRight_2);
-
-        // CanSpark_driveLeft_1.restoreFactoryDefaults();
         TalonSRX_driveLeft_1.configFactoryDefault();
         TalonSRX_driveLeft_2.configFactoryDefault();
         TalonSRX_driveRight_1.configFactoryDefault();
         TalonSRX_driveRight_2.configFactoryDefault();
 
-        // CanSpark_driveLeft_2.restoreFactoryDefaults();
-        // CanSpark_driveRight_1.restoreFactoryDefaults();
-        // CanSpark_driveRight_2.restoreFactoryDefaults();
-
-        // CanSpark_driveLeft_1.setInverted(false);
         TalonSRX_driveLeft_1.setInverted(InvertType.None);
         TalonSRX_driveLeft_2.setInverted(InvertType.FollowMaster);
         TalonSRX_driveRight_1.setInverted(InvertType.None);
         TalonSRX_driveRight_2.setInverted(InvertType.FollowMaster);
 
-        // CanSpark_driveLeft_2.setInverted(false);
-        // CanSpark_driveRight_1.setInverted(true);
-        // CanSpark_driveRight_2.setInverted(true);
 
-        int maxCurrent = 50;
-        // CanSpark_driveLeft_1.setSmartCurrentLimit(maxCurrent);
+        int maxCurrent = 30;
         TalonSRX_driveLeft_1.configPeakCurrentLimit(maxCurrent);
         TalonSRX_driveLeft_2.configPeakCurrentLimit(maxCurrent);
 
         TalonSRX_driveRight_1.configPeakCurrentLimit(maxCurrent);
         TalonSRX_driveRight_2.configPeakCurrentLimit(maxCurrent);
-
-        // CanSpark_driveLeft_2.setSmartCurrentLimit(maxCurrent);
-        // CanSpark_driveRight_1.setSmartCurrentLimit(maxCurrent);
-        // CanSpark_driveRight_2.setSmartCurrentLimit(maxCurrent);
 
         TalonSRX_driveLeft_1.enableCurrentLimit(true);
         TalonSRX_driveLeft_2.enableCurrentLimit(true);
@@ -143,16 +105,6 @@ public class SubDriveTrain extends SubsystemBase {
         TalonSRX_driveRight_1.setNeutralMode(NeutralMode.Brake);
         TalonSRX_driveRight_2.setNeutralMode(NeutralMode.Brake);
 
-        // CanSpark_driveLeft_2.setIdleMode(WL_Spark.IdleMode.kBrake);
-        // CanSpark_driveRight_1.setIdleMode(WL_Spark.IdleMode.kBrake);
-        // CanSpark_driveRight_2.setIdleMode(WL_Spark.IdleMode.kBrake);
-
-        // Set the 2's to follow the 1's
-        TalonSRX_driveLeft_2.follow(TalonSRX_driveLeft_1);
-        TalonSRX_driveRight_2.follow(TalonSRX_driveRight_1);
-        // CanSpark_driveLeft_2.follow(CanSpark_driveLeft_1);
-
-        // CanSpark_driveRight_2.follow(CanSpark_driveRight_1);
 
         // burn new settings in to survive a brownout
         // CanSpark_driveLeft_1.burnFlash();
@@ -180,12 +132,13 @@ public class SubDriveTrain extends SubsystemBase {
         double power = CommonLogic.CapMotorPower(pwrPercent * kDT_powerLeftScaler, kMinThrottle, kMaxThrottle);
         // CanSpark_driveLeft_1.set(power);
         TalonSRX_driveLeft_1.set(ControlMode.PercentOutput, power);
+        TalonSRX_driveLeft_2.set(ControlMode.PercentOutput, power);
     }
 
     private void setPower_RightDrive(double pwrPercent) {
         double power = CommonLogic.CapMotorPower(pwrPercent * kDT_powerRightScaler, kMinThrottle, kMaxThrottle);
         TalonSRX_driveRight_1.set(ControlMode.PercentOutput, power);
-
+        TalonSRX_driveRight_2.set(ControlMode.PercentOutput, power);
     }
 
     /**
@@ -280,13 +233,6 @@ public class SubDriveTrain extends SubsystemBase {
         TalonSRX_driveLeft_2.set(ControlMode.PercentOutput, 0);
         TalonSRX_driveRight_1.set(ControlMode.PercentOutput, 0);
         TalonSRX_driveRight_2.set(ControlMode.PercentOutput, 0);
-
-        /*
-         * CanSpark_driveRight_1.set(0);
-         * CanSpark_driveRight_2.set(0);
-         * CanSpark_driveLeft_1.set(0);
-         * CanSpark_driveLeft_2.set(0);
-         */
     }
 
 }
