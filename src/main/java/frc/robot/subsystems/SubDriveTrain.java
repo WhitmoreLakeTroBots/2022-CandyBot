@@ -99,11 +99,11 @@ public class SubDriveTrain extends SubsystemBase {
 
         // Set Brake Mode for the motors so we stop when controls are let go of
         // CanSpark_driveLeft_1.setIdleMode(WL_Spark.IdleMode.kBrake);
-        TalonSRX_driveLeft_1.setNeutralMode(NeutralMode.Brake);
-        TalonSRX_driveLeft_2.setNeutralMode(NeutralMode.Brake);
+        TalonSRX_driveLeft_1.setNeutralMode(NeutralMode.Coast);
+        TalonSRX_driveLeft_2.setNeutralMode(NeutralMode.Coast);
 
-        TalonSRX_driveRight_1.setNeutralMode(NeutralMode.Brake);
-        TalonSRX_driveRight_2.setNeutralMode(NeutralMode.Brake);
+        TalonSRX_driveRight_1.setNeutralMode(NeutralMode.Coast);
+        TalonSRX_driveRight_2.setNeutralMode(NeutralMode.Coast);
 
 
         // burn new settings in to survive a brownout
@@ -233,6 +233,20 @@ public class SubDriveTrain extends SubsystemBase {
         TalonSRX_driveLeft_2.set(ControlMode.PercentOutput, 0);
         TalonSRX_driveRight_1.set(ControlMode.PercentOutput, 0);
         TalonSRX_driveRight_2.set(ControlMode.PercentOutput, 0);
+    }
+    public void setCoast() {
+        TalonSRX_driveLeft_1.setNeutralMode(NeutralMode.Coast);
+        TalonSRX_driveLeft_2.setNeutralMode(NeutralMode.Coast);
+
+        TalonSRX_driveRight_1.setNeutralMode(NeutralMode.Coast);
+        TalonSRX_driveRight_2.setNeutralMode(NeutralMode.Coast);
+    }
+    public void setBrake() {
+        TalonSRX_driveLeft_1.setNeutralMode(NeutralMode.Brake);
+        TalonSRX_driveLeft_2.setNeutralMode(NeutralMode.Brake);
+
+        TalonSRX_driveRight_1.setNeutralMode(NeutralMode.Brake);
+        TalonSRX_driveRight_2.setNeutralMode(NeutralMode.Brake);
     }
 
 }

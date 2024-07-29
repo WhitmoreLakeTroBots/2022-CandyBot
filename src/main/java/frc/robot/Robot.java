@@ -75,6 +75,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void disabledInit() {
+        RobotContainer.getInstance().subDriveTrain.setCoast();
     }
 
     @Override
@@ -113,6 +114,8 @@ public class Robot extends TimedRobot {
         if (m_autonomousCommand != null) {
             m_autonomousCommand.cancel();
         }
+        RobotContainer.getInstance().subDriveTrain.setBrake();
+
     }
 
     /**
